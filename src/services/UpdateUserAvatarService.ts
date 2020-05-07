@@ -4,6 +4,7 @@ import path from 'path';
 import fs from 'fs';
 
 import uploadConfig from '../config/upload';
+import AppError from '../errors/AppError';
 
 interface Request {
   user_id: string;
@@ -17,7 +18,7 @@ class UpdateUserAvatarService {
     const user = await usersRepository.findOne(user_id);
 
     if (!user) {
-      throw new Error('Sorry, but you can`t change your avatar.');
+      throw new AppError('Sorry, but you can`t change your avatar.', 401);
     }
 
     // Deletar avatar anterior
